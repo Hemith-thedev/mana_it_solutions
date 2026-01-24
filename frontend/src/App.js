@@ -10,12 +10,33 @@ import ServicesPage from './Pages/Utilities/Services';
 import ContactPage from './Pages/Forms/Contact';
 
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import Lenis from 'lenis';
 
 function App() {
   const location = useLocation();
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  useEffect(() => {
+    const header = document.querySelector("header");
+    if (header) {
+      if (header?.classList.contains("opened")) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "auto";
+      }
+    }
+  });
+  useEffect(() => {
+    const lenis = new Lenis();
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  })
   return (
-    <div className="App">
-      <NavBar />
+    <div className={`App flex flex-col justify-start items-center min-h-screen w-full`}>
+      <NavBar isOpen={isNavOpen} onClick={() => setIsNavOpen(prev => !prev)} />
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
