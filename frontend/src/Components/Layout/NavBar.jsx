@@ -24,6 +24,7 @@ const NavigationButton = ({ label, path, subpaths }) => {
   let LABEL = (label) ? label : "Label";
   let PATH = (path) ? path : "/";
   let SUBPATHS = (Array.isArray(subpaths) && subpaths.length > 0) ? subpaths : "";
+  let activeSubroute = Array.isArray(SUBPATHS) && SUBPATHS.find((subpath) => subpath.path === window.location.pathname);
   const [isOpen, setIsopen] = useState(PATH === window.location.pathname);
   // if the user not clicks on the toggle button or menu, then close the menu
   useEffect(() => {
@@ -42,7 +43,9 @@ const NavigationButton = ({ label, path, subpaths }) => {
       <div className="dropdown relative flex flex-col justify-start items-center">
         <div ref={ref} className={`dropdown-button flex justify-center items-center gap-[0.25rem] ${isMobile ? "p-2 rounded-2xl text-2xl" : "p-2 rounded-md text-xl"} bg-blue-400/0 h-fit w-full ${(isOpen || PATH == window.location.pathname) ? "bg-blue-400/100 opacity-100" : "bg-blue-400/0 opacity-50"} ${isMobile ? "p-2 rounded-2xl text-2xl" : "p-2 rounded-md text-xl"}`}>
           <NavLink to={PATH} onClick={() => setIsopen(false)} className={`flex justify-center items-center rounded-xl`}>
-            <p className={`${isMobile ? "text-2xl" : "text-xl"} text-white`}>Services</p>
+            <p className={`${isMobile ? "text-2xl" : "text-xl"} text-white text-nowrap`}>
+              {"Services " + (activeSubroute ? `(${activeSubroute.shortlabel})` : "")}
+            </p>
           </NavLink>
           <div className="icon" onClick={() => setIsopen(prev => !prev)} style={{
             transform: `rotate(${isMobile ? "180deg" : "0deg"})`
@@ -50,7 +53,7 @@ const NavigationButton = ({ label, path, subpaths }) => {
             <ChevronDown className={`transform translate-y-[0.1rem] ${isMobile ? "size-[2rem]" : "size-[2rem]"} text-white`} strokeWidth={2.5} />
           </div>
         </div>
-        {isOpen && <ul className={`dropdown-menu ${isMobile ? "flex flex-col relative p-5 gap-[0.5rem]" : "absolute top-[4.2rem] max-h-64 p-3 rounded-xl bg-gray-900 overflow-auto no-scrollbar"}`}>
+        {isOpen && <ul className={`dropdown-menu ${isMobile ? "flex flex-col relative p-5 gap-[0.5rem]" : "absolute top-[4.2rem] max-h-64 p-3 rounded-xl bg-gray-900 overflow-auto no-scrollbar"}`} data-lenis-prevent>
           {
             Array.isArray(SUBPATHS) && SUBPATHS.map((subpath, index) => (
               <NavigationButton key={index} label={subpath.label} path={subpath.path} />
@@ -63,8 +66,8 @@ const NavigationButton = ({ label, path, subpaths }) => {
     <div className={`navigation-link flex justify-center items-center h-fit w-full`}>
       <div className={`link flex justify-center items-center h-fit w-full`}>
         <NavLink
-        className={`navigation-link ${isMobile ? "p-2 rounded-2xl text-2xl" : "p-2 rounded-md text-xl"} bg-blue-400/0 h-fit w-full text-center hover:bg-blue-400/100 ${(PATH === window.location.pathname) ? "bg-blue-400/100 text-white opacity-100" : "bg-blue-400/0 text-white opacity-50"}`}
-        to={PATH}
+          className={`navigation-link ${isMobile ? "p-2 rounded-2xl text-2xl" : "p-2 rounded-md text-xl"} bg-blue-400/0 h-fit w-full text-center hover:bg-blue-400/100 ${(PATH === window.location.pathname) ? "bg-blue-400/100 text-white opacity-100" : "bg-blue-400/0 text-white opacity-50"}`}
+          to={PATH}
         >{LABEL}</NavLink>
       </div>
     </div>
@@ -92,39 +95,48 @@ const NavBar = ({ isOpen, onClick }) => {
   const ServicesSubPaths = [
     {
       label: "Managed Print Services",
-      path: "/manages-print-services"
+      path: "/manages-print-services",
+      shortlabel: "MPS"
     },
     {
       label: "Annual Maintenance Contract",
-      path: "/annual-maintenance-contract"
+      path: "/annual-maintenance-contract",
+      shortlabel: "AMC"
     },
     {
       label: "Facility Management Services",
-      path: "/facility-management-services"
+      path: "/facility-management-services",
+      shortlabel: "FMS"
     },
     {
       label: "Document Management Solutions",
-      path: "/document-management-solutions"
+      path: "/document-management-solutions",
+      shortlabel: "DMS"
     },
     {
       label: "Display Solutions",
-      path: "/display-solutions"
+      path: "/display-solutions",
+      shortlabel: "DS"
     },
     {
       label: "Networking",
-      path: "/networking"
+      path: "/networking",
+      shortlabel: "N"
     },
     {
       label: "CCTV Solution",
-      path: "/cctv-solution"
+      path: "/cctv-solution",
+      shortlabel: "CCTV"
     },
     {
       label: "Video Conferencing Solutions",
-      path: "/video-conferencing-solutions"
+      path: "/video-conferencing-solutions",
+      shortlabel: "VCS"
     },
     {
       label: "IT Services",
-      path: "/it-services"
+      path: "/it-services",
+      shortlabel: "ITS"
     }
   ];
   return (
