@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
-import { ChevronDown, TextAlignEnd, X } from "lucide-react";
+import { Check, ChevronDown, TextAlignEnd, X } from "lucide-react";
 
 const NavigationButton = ({ label, path, subpaths }) => {
   const ref = useRef(null);
@@ -41,7 +41,7 @@ const NavigationButton = ({ label, path, subpaths }) => {
   return (SUBPATHS.length > 0) ? (
     <div className="navigation-link">
       <div className="dropdown relative flex flex-col justify-start items-center">
-        <div ref={ref} className={`dropdown-button flex justify-center items-center gap-[0.25rem] ${isMobile ? "p-2 rounded-2xl text-2xl" : "p-2 rounded-md text-xl"} bg-blue-400/0 h-fit w-full ${(isOpen || PATH == window.location.pathname) ? "bg-blue-400/100 opacity-100" : "bg-blue-400/0 opacity-50"} ${isMobile ? "p-2 rounded-2xl text-2xl" : "p-2 rounded-md text-xl"}`}>
+        <div ref={ref} className={`dropdown-button flex justify-center items-center gap-[0.25rem] ${isMobile ? "p-2 rounded-2xl text-2xl" : "p-2 rounded-md text-xl"} bg-blue-400/0 h-fit w-full ${(isOpen || PATH === window.location.pathname) ? "bg-blue-400/100 opacity-100" : "bg-blue-400/0 opacity-50"} ${isMobile ? "p-2 rounded-2xl text-2xl" : "p-2 rounded-md text-xl"}`}>
           <NavLink to={PATH} onClick={() => setIsopen(false)} className={`flex justify-center items-center rounded-xl`}>
             <p className={`${isMobile ? "text-2xl text-black" : "text-xl"} text-white text-nowrap`}>
               {"Services " + (activeSubroute ? `(${activeSubroute.shortlabel})` : "")}
@@ -85,11 +85,31 @@ const NavBar = ({ isOpen, onClick }) => {
       }
     }
     CheckIsMobile();
-    document.addEventListener("DOMContentLoaded", CheckIsMobile);
-    window.addEventListener("resize", CheckIsMobile);
+    function UpdateHeaderHeight(){
+      const header = document.querySelector("header");
+      if (header) {
+        let headerHeight = header?.offsetHeight;
+        document.body.style.setProperty("--header-height", `${headerHeight}px`);
+      }
+    }
+    UpdateHeaderHeight();
+    document.addEventListener("DOMContentLoaded",() => {
+      CheckIsMobile();
+      UpdateHeaderHeight();
+    });
+    window.addEventListener("resize",() => {
+      CheckIsMobile();
+      UpdateHeaderHeight();
+    });
     return () => {
-      document.removeEventListener("DOMContentLoaded", CheckIsMobile);
-      window.removeEventListener("resize", CheckIsMobile);
+      document.removeEventListener("DOMContentLoaded",() => {
+        CheckIsMobile();
+        UpdateHeaderHeight();
+      });
+      window.removeEventListener("resize",() => {
+        CheckIsMobile();
+        UpdateHeaderHeight();
+      });
     }
   }, []);
   const ServicesSubPaths = [
@@ -140,7 +160,7 @@ const NavBar = ({ isOpen, onClick }) => {
     }
   ];
   return (
-    <header className={`${isOpen ? "opened" : ""} sticky top-0 flex flex-col justify-start items-center ${isOpen ? "h-screen" : "h-fit"} w-full backdrop-blur-md`}>
+    <header className={`${isOpen ? "opened" : ""} sticky top-0 z-[100] flex flex-col justify-start items-center ${isOpen ? "h-screen" : "h-fit"} w-full backdrop-blur-md`}>
       <div className="header-wrapper flex justify-between items-center h-fit w-full p-[1rem]">
         <div className={`logo ${(isMobile) ? "h-[15vw]" : "h-[5vw]"}`}>
           <img className="h-full w-full object-cover" src="logo/logo.png" alt="Logo" />
