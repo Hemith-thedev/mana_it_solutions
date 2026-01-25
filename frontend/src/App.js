@@ -10,6 +10,7 @@ import ServicesPage from './Pages/Utilities/Services';
 import ContactPage from './Pages/Forms/Contact';
 
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 
@@ -37,13 +38,15 @@ function App() {
   return (
     <div className={`App flex flex-col justify-start items-center min-h-screen w-full`}>
       <NavBar isOpen={isNavOpen} onClick={() => setIsNavOpen(prev => !prev)} />
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/career" element={<CareerPage />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-      </Routes>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/career" element={<CareerPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+      </AnimatePresence>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, TextAlignEnd, X } from "lucide-react";
 
 const NavigationButton = ({ label, path, subpaths }) => {
   const ref = useRef(null);
@@ -43,14 +43,14 @@ const NavigationButton = ({ label, path, subpaths }) => {
       <div className="dropdown relative flex flex-col justify-start items-center">
         <div ref={ref} className={`dropdown-button flex justify-center items-center gap-[0.25rem] ${isMobile ? "p-2 rounded-2xl text-2xl" : "p-2 rounded-md text-xl"} bg-blue-400/0 h-fit w-full ${(isOpen || PATH == window.location.pathname) ? "bg-blue-400/100 opacity-100" : "bg-blue-400/0 opacity-50"} ${isMobile ? "p-2 rounded-2xl text-2xl" : "p-2 rounded-md text-xl"}`}>
           <NavLink to={PATH} onClick={() => setIsopen(false)} className={`flex justify-center items-center rounded-xl`}>
-            <p className={`${isMobile ? "text-2xl" : "text-xl"} text-white text-nowrap`}>
+            <p className={`${isMobile ? "text-2xl text-black" : "text-xl"} text-white text-nowrap`}>
               {"Services " + (activeSubroute ? `(${activeSubroute.shortlabel})` : "")}
             </p>
           </NavLink>
-          <div className="icon" onClick={() => setIsopen(prev => !prev)} style={{
-            transform: `rotate(${isMobile ? "180deg" : "0deg"})`
+          <div className="icon transition" onClick={() => setIsopen(prev => !prev)} style={{
+            transform: `rotate(${isOpen ? "90deg" : "0deg"})`
           }}>
-            <ChevronDown className={`transform translate-y-[0.1rem] ${isMobile ? "size-[2rem]" : "size-[2rem]"} text-white`} strokeWidth={2.5} />
+            <ChevronDown className={`transform translate-y-[0.1rem] ${isMobile ? "size-[2rem] text-black" : "size-[2rem]"} text-white`} strokeWidth={2.5} />
           </div>
         </div>
         {isOpen && <ul className={`dropdown-menu ${isMobile ? "flex flex-col relative p-5 gap-[0.5rem]" : "absolute top-[4.2rem] max-h-64 p-3 rounded-xl bg-gray-900 overflow-auto no-scrollbar"}`} data-lenis-prevent>
@@ -66,7 +66,7 @@ const NavigationButton = ({ label, path, subpaths }) => {
     <div className={`navigation-link flex justify-center items-center h-fit w-full`}>
       <div className={`link flex justify-center items-center h-fit w-full`}>
         <NavLink
-          className={`navigation-link ${isMobile ? "p-2 rounded-2xl text-2xl" : "p-2 rounded-md text-xl"} bg-blue-400/0 h-fit w-full text-center hover:bg-blue-400/100 ${(PATH === window.location.pathname) ? "bg-blue-400/100 text-white opacity-100" : "bg-blue-400/0 text-white opacity-50"}`}
+          className={`navigation-link ${isMobile ? "p-2 rounded-2xl text-2xl text-black" : "p-2 rounded-md text-xl"} bg-blue-400/0 h-fit w-full text-center hover:bg-blue-400/100 ${(PATH === window.location.pathname) ? "bg-blue-400/100 text-white opacity-100" : "bg-blue-400/0 text-white opacity-50"}`}
           to={PATH}
         >{LABEL}</NavLink>
       </div>
@@ -154,11 +154,11 @@ const NavBar = ({ isOpen, onClick }) => {
         </nav>}
         {isMobile && (
           <div className="hEader-toggle">
-            <div className={`flex justify-center items-center bg-blue-500 h-[13vw] w-[13vw] p-1 rounded-lg`} onClick={() => onClick()}>
+            <div className={`flex justify-center items-center ${isOpen ? "bg-blue-400/100 text-white" : "bg-blue-400/0 text-blue-400"} h-[13vw] w-[13vw] p-1 rounded-lg`} onClick={() => onClick()}>
               {isOpen ? (
-                <X className="h-full w-full object-cover" />
+                <X className="h-full w-full object-cover" strokeWidth={3} />
               ) : (
-                <Menu className="h-full w-full object-cover" />
+                <TextAlignEnd className="h-full w-full object-cover" strokeWidth={3} />
               )}
             </div>
           </div>

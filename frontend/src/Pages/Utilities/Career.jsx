@@ -1,9 +1,17 @@
+import { motion } from "framer-motion";
+import PTA from "../../Data/PTA";
 
 const CareerPage = () => {
   return (
-    <main className="career-page utility-page">
+    <motion.main
+      initial={"initial"}
+      animate={"animate"}
+      exit={"exit"}
+      transition={PTA.transition}
+      variants={PTA}
+      className="career-page utility-page">
       <h1 className="">Career page</h1>
-    </main>
+    </motion.main>
   )
 }
 
