@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
-import { Check, ChevronDown, TextAlignEnd, X } from "lucide-react";
+import { ChevronDown, TextAlignEnd, X } from "lucide-react";
 
 const NavigationButton = ({ label, path, subpaths }) => {
   const ref = useRef(null);
@@ -160,12 +160,12 @@ const NavBar = ({ isOpen, onClick }) => {
     }
   ];
   return (
-    <header className={`${isOpen ? "opened" : ""} sticky top-0 z-[100] flex flex-col justify-start items-center ${isOpen ? "h-screen" : "h-fit"} w-full backdrop-blur-md`}>
+    <header className={`${isOpen ? "opened" : ""} sticky top-0 z-[100] flex flex-col justify-start items-center ${isOpen ? "h-screen" : "h-fit"} w-full`}>
       <div className="header-wrapper flex justify-between items-center h-fit w-full p-[1rem]">
         <div className={`logo ${(isMobile) ? "h-[15vw]" : "h-[5vw]"}`}>
           <img className="h-full w-full object-cover" src="logo/logo.png" alt="Logo" />
         </div>
-        {(!isMobile) && <nav className="flex justify-center items-center px-3 py-2 rounded-xl bg-gray-900">
+        {(!isMobile) && <nav className="flex justify-center items-center px-3 py-2 rounded-xl bg-gray-900/80 backdrop-blur-md">
           <NavigationButton label="Home" path="/" />
           <NavigationButton label="About" path="/about" />
           <NavigationButton label="Career" path="/career" />

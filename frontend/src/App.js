@@ -27,16 +27,16 @@ function App() {
       }
     }
   });
-  useEffect(() => {
-    const lenis = new Lenis();
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-  })
+  // useEffect(() => {
+  //   const lenis = new Lenis();
+  //   function raf(time) {
+  //     lenis.raf(time);
+  //     requestAnimationFrame(raf);
+  //   }
+  //   requestAnimationFrame(raf);
+  // })
   return (
-    <div className={`App flex flex-col justify-start items-center min-h-screen w-full`}>
+    <div className={`App flex flex-col justify-start items-center min-h-screen w-screen`}>
       <NavBar isOpen={isNavOpen} onClick={() => setIsNavOpen(prev => !prev)} />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
