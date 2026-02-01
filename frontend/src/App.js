@@ -12,7 +12,7 @@ import ContactPage from './Pages/Forms/Contact';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import Lenis from 'lenis';
+// import Lenis from 'lenis';
 
 function App() {
   const location = useLocation();
