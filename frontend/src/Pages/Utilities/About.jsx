@@ -21,7 +21,7 @@ const AboutPage = () => {
             <p>Here at Mana IT Solutions, we provide a wide range of services, including Annual Maintenance Contract (AMC), Managed Print Services (MPS), Facility Management Services (FMS), Document Management Solutions (DMS), Display Solution, CCTV Solution, VC Solution, IT Services. We are committed to providing our customers with the highest quality of services and support. We have a team of experienced and qualified professionals who are dedicated to meeting the needs of our customers. We are also constantly investing in new technologies and solutions to ensure that we can provide our customers with the best possible service.</p>
           </div>
           <div className="image">
-            <img src="./images/about-info.png" alt="About Info" />
+            <img src="./images/about-info.jpg" alt="About Info" />
           </div>
         </>
       } />
